@@ -1,7 +1,7 @@
 from django.contrib.auth.models import User
 from rest_framework import serializers
 
-from recipes.models import Recipe, Comment
+from recipes.models import Recipe, Comment, RecipeIngredient
 
 
 class UserNameSerializer(serializers.ModelSerializer):
@@ -18,9 +18,16 @@ class CommentSerializer(serializers.ModelSerializer):
         exclude = ["id"]
 
 
+class RecipeIngredientSerializer(serializers.ModelSerializer):
+    class Meta:
+        model = RecipeIngredient
+        exclude = ["id", "recipe"]
+
+
 class RecipeSerializer(serializers.ModelSerializer):
     user = UserNameSerializer(read_only=True)
     comments = CommentSerializer(read_only=True, many=True)
+    ingredients = RecipeIngredientSerializer(read_only=True, many=True)
 
     class Meta:
         model = Recipe

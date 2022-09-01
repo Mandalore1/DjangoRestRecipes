@@ -13,6 +13,7 @@ class TestView(APIView):
 
 class RecipeView(APIView):
     def get(self, request, pk):
-        recipe = get_object_or_404(Recipe, pk=pk)
+        recipe = Recipe.objects.all().select_related("user").prefetch_related("comments__user")
+        recipe = get_object_or_404(recipe, pk=pk)
         serializer = RecipeSerializer(recipe)
         return Response(serializer.data)
