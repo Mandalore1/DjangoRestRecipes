@@ -5,7 +5,8 @@ from django.db import models
 class Recipe(models.Model):
     """Рецепт"""
     user = models.ForeignKey(User, on_delete=models.CASCADE, related_name="recipes", verbose_name="Пользователь")
-    favorited_by = models.ManyToManyField(User, related_name="favorite_recipes", verbose_name="Избран пользователями")
+    favorited_by = models.ManyToManyField(User, related_name="favorite_recipes", verbose_name="Избран пользователями",
+                                          blank=True, null=True)
 
     title = models.CharField(max_length=150, blank=False, verbose_name="Название")
     description = models.TextField(blank=True, null=True, verbose_name="Описание")
