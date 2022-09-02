@@ -24,6 +24,7 @@ urlpatterns = [
     path('__debug__/', include('debug_toolbar.urls')),
     path('api-auth/', include('rest_framework.urls')),
     path('api/v1/', include("recipes.urls")),
+    path('api/v1/', include("users.urls")),
 ]
 
 if settings.DEBUG:
